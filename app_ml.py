@@ -17,20 +17,16 @@ def run_ml_app():
 
     woman_fr = st.number_input('외국인 여자 인구를 입력하세요.',1000,10000000)
 
-    if st.button('구매 예상 금액'):
+    if st.button('노인 인구 예측'):
         #예측한 결과를 화면에 보여준다.
         new_data = []
         
-        # 1. 넘파이 어레이 만들어야 한다.
-        new_data = np.array([man_kr, woman_kr, man_fr,man_fr,woman_fr])
-        new_data = new_data.reshape(1,5)
+        new_data = np.array([man_kr, woman_kr,man_fr,woman_fr])
+        new_data = new_data.reshape(1,4)
         y_pred = regressor.predict(new_data)
-        result = y_pred[0]
-
-        if result <= 0:
-            st.text('노인 인구를 예측하기 어렵습니다.')
-        else:
-            st.text('인천 광역시의 노인 인구는  {} 명으로 예측 됩니다.'.format(result))
+        result = round(y_pred[0])
+        result = "{:,}".format(result)
+        st.text('인천 광역시의 노인 인구는 {}명으로 예측 됩니다.'.format(result))
        
        
     else :

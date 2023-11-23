@@ -10,6 +10,7 @@ def run_eda_app():
 
     st.text('전체 데이터 프레임 확인하기')
     df = pd.read_csv('./data/Incheon_populationv2.csv',encoding = 'euc-kr')
+    d_year = df['year']
     df['year'] = df['year'].astype(str)
     df = df.set_index('year') #문자열로 하여야 ,가 붙지 않음.
     st.dataframe(df)
@@ -17,40 +18,43 @@ def run_eda_app():
     st.text('기초 통계 데이터 확인')
     if st.checkbox('통계 데이터보기'):
         st.dataframe(df.describe())
+        st.text('노인 인구가 제일 적었던 해 ')
+        st.dataframe(df.loc[ df['oldman'] == df['oldman'].min() , ])
+        st.text('노인 인구가 제일 많았던 해 ')
+        st.dataframe(df.loc[ df['oldman'] == df['oldman'].max() , ])
     else :
         st.text('')
 
-    st.text('최대 / 최소 데이터 확인하기')
-
     column_list = df.columns[:]
     # selected_column = st.selectbox('컬럼을 선택하세요',column_list)
-    st.text('노인 인구가 제일 적었던 해 ')
-    st.dataframe(df.loc[ df['oldman'] == df['oldman'].min() , ])
-    st.text('노인 인구가 제일 많았던 해 ')
-    st.dataframe(df.loc[ df['oldman'] == df['oldman'].max() , ])
 
     # st.text(selected_column + '컬럼의 최소 값')
     # st.dataframe(df.loc[ df[selected_column] == df[selected_column].min() , ])
     # st.text(selected_column + '컬럼의 최대 값')
     # st.dataframe(df.loc[ df[selected_column] == df[selected_column].max() , ])
 
+    st.text('년도별 데이터 확인하기')
+    selected_column2 = st.selectbox('컬럼을 선택하세요',column_list)
+    ylabel = selected_column2
+
+    plt.ylabel('')
+    fig = plt.figure(figsize=(8,5))
+    plt.title( ylabel +  ' population data by ' + 'year')
     
-    # st.text('년 도별 데이터 확인하기')
-    if st.checkbox('년도별 데이터 보기'):
-        selected_column2 = st.selectbox('컬럼을 선택하세요',column_list)
-        ylabel = selected_column2
-        plt.ylabel('')
-        fig = plt.figure()
-        plt.style.use('ggplot')
-        plt.title( ylabel +  ' population data by ' + 'year')
-        plt.xlabel('year')
-        plt.ylabel(ylabel)
-        plt.plot( df[selected_column2] )
-        st.pyplot(fig)
-    else :
-        st.text('')
+    plt.xlabel('year')
+    plt.ylabel(ylabel)
+    plt.plot( df[selected_column2] )
+    st.pyplot(fig)
 
-
+    st.text('Pie 차트 형태로 비율 확인')
+    selected_year = str(st.selectbox('년도 인구 선택', d_year))
+    df2= df.loc[selected_year]
+    fig = plt.figure()
+    plt.pie(df2, labels = df2.index, autopct='%.1f',startangle=90,wedgeprops={'width':0.8})
+    plt.legend()
+    plt.title( selected_year +' Incheon population')
+    st.pyplot(fig)
+  
 
 
     if st.checkbox('상관 관계 데이터 보기'):
