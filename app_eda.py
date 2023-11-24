@@ -48,9 +48,8 @@ def run_eda_app():
     plt.ylabel('')
     fig = plt.figure(figsize=(8,5))
     #plt.title( ylabel +  ' population data by ' + 'year')
-    plt.title( '년도 별' + ylabel + ' 데이터 ' )
-    
-    #plt.xlabel('년도 별' + ylabel + ' 데이터 ' )
+    plt.title( '년도별 ' + ylabel + '데이터 ' )
+    plt.xlabel('년도' )
     plt.ylabel(ylabel)
     plt.plot( df[selected_column2] )
     st.pyplot(fig)
