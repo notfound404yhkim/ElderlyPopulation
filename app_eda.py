@@ -47,7 +47,8 @@ def run_eda_app():
 
     plt.ylabel('')
     fig = plt.figure(figsize=(8,5))
-    plt.title( ylabel +  ' population data by ' + 'year')
+    #plt.title( ylabel +  ' population data by ' + 'year')
+    plt.title( 'year' + '년도 ' + ylabel )
     
     plt.xlabel('년도')
     plt.ylabel(ylabel)
@@ -60,7 +61,7 @@ def run_eda_app():
     fig = plt.figure()
     plt.pie(df2, labels = df2.index, autopct='%.1f',startangle=90,wedgeprops={'width':0.8})
     plt.legend()
-    plt.title( selected_year +' Incheon population')
+    plt.title( selected_year +'년 인천 인구')
     st.pyplot(fig)
   
 
