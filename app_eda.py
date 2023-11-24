@@ -48,7 +48,7 @@ def run_eda_app():
 
     st.text('Pie 차트 형태로 비율 확인')
     selected_year = str(st.selectbox('년도 인구 선택', d_year))
-    df2= df.loc[selected_year]
+    df2= df.loc[selected_year,['man(korean)','woman(korean)','man(foreigner)','woman(foreigner)']]
     fig = plt.figure()
     plt.pie(df2, labels = df2.index, autopct='%.1f',startangle=90,wedgeprops={'width':0.8})
     plt.legend()
