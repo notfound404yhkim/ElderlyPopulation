@@ -30,7 +30,7 @@ def run_ml_app():
     woman_fr = st.number_input('외국인 여자 인구를 입력하세요. (최소 만 단위)',10000,10000000)
 
     total = man_kr+woman_kr+man_fr+woman_fr
-    total = "{:,}".format(total)
+    
 
     st.markdown("""<style> 
             [class='row-widget stButton'] > button {
@@ -54,15 +54,19 @@ def run_ml_app():
 
         new_data = []
         percent = ((woman_kr / man_kr * 100.0))
+        
         if percent >= 98 and percent <= 103 :
             new_data = np.array([man_kr, woman_kr,man_fr,woman_fr])
             new_data = new_data.reshape(1,4)
             y_pred = regressor.predict(new_data)
             result = round(y_pred[0])
+            percent2 = (round((result / total * 100.0)))
             result = "{:,}".format(result)
+            total = "{:,}".format(total)
             st.text('인천 광역시의 전체 인구는 {} 이며, 노인 인구는 {}명으로 예측 됩니다.'.format(total,result))
+            st.text('노인 인구는 {} % 입니다.'.format(percent2))
         else:
-            st.text('대한민국 남자 여자 비율이 3퍼센트 이상 차이가 나면 예측이 어렵습니다.')
+            st.text('대한민국 남자 여자 비율이 3 % 이상 차이가 나면 예측이 어렵습니다.')
        
     else :
         st.text('')
