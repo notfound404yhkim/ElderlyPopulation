@@ -1,6 +1,7 @@
 import streamlit as st
 import joblib
 import numpy as np
+from PIL import Image
 
 def run_ml_app():
     st.subheader('노인 인구 예측')
@@ -10,6 +11,13 @@ def run_ml_app():
 
     img_url = 'https://www.sciencetimes.co.kr/wp-content/uploads/2021/05/30212411048_2a1d7200e2_b-480x384.jpg'
     st.image(img_url)
+
+    st.text('샘플 데이터 보기')
+    if st.checkbox('샘플 : 2013~2022년 통계'):
+        img = Image.open('./data/data_img.jpg')
+        st.image(img)
+    else :
+        st.text('')
 
     regressor = joblib.load('./model/regressor.pkl')
 
@@ -24,12 +32,29 @@ def run_ml_app():
     total = man_kr+woman_kr+man_fr+woman_fr
     total = "{:,}".format(total)
 
+    st.markdown("""<style> 
+            [class='row-widget stButton'] > button {
+                border-radius: 50px;
+                background : #D9D9D9;
+                filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+                border : hidden;
+            }
+            [class='row-widget stButton'] > button > div {
+                color : #FFFFFF;
+            }
+            [class='row-widget stButton'] > button:hover {
+                background : #2D5AF0;
+                transform : scale(1.1);
+                transition : .5s;
+            }
+    </style>""", unsafe_allow_html=True)
+
     if st.button('노인 인구 예측'):
         #예측한 결과를 화면에 보여준다.
-        
+
         new_data = []
         percent = ((woman_kr / man_kr * 100.0))
-        if percent >= 98:
+        if percent >= 98 and percent <= 103 :
             new_data = np.array([man_kr, woman_kr,man_fr,woman_fr])
             new_data = new_data.reshape(1,4)
             y_pred = regressor.predict(new_data)
