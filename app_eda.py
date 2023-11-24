@@ -17,19 +17,19 @@ def run_eda_app():
     st.subheader('데이터 분석')
 
     st.text('전체 데이터 프레임 확인하기')
-    df = pd.read_csv('./data/Incheon_populationv2.csv',encoding = 'euc-kr')
-    d_year = df['year']
-    df['year'] = df['year'].astype(str)
-    df = df.set_index('year') #문자열로 하여야 ,가 붙지 않음.
+    df = pd.read_csv('./data/Incheon_populationv3.csv',encoding = 'euc-kr')
+    d_year = df['년도']
+    df['년도'] = df['년도'].astype(str)
+    df = df.set_index('년도') #문자열로 하여야 ,가 붙지 않음.
     st.dataframe(df)
     
     st.subheader('기초 통계 데이터 확인')
     if st.checkbox('통계 데이터보기'):
         st.dataframe(df.describe())
         st.text('노인 인구가 제일 적었던 해 ')
-        st.dataframe(df.loc[ df['oldman'] == df['oldman'].min() , ])
+        st.dataframe(df.loc[ df['노인(65세이상)'] == df['노인(65세이상)'].min() , ])
         st.text('노인 인구가 제일 많았던 해 ')
-        st.dataframe(df.loc[ df['oldman'] == df['oldman'].max() , ])
+        st.dataframe(df.loc[ df['노인(65세이상)'] == df['노인(65세이상)'].max() , ])
     else :
         st.text('')
 
@@ -48,7 +48,7 @@ def run_eda_app():
     plt.ylabel('')
     fig = plt.figure(figsize=(8,5))
     #plt.title( ylabel +  ' population data by ' + 'year')
-    plt.title( 'year' + '년도 ' + ylabel )
+    plt.title( ylabel )
     
     plt.xlabel('년도')
     plt.ylabel(ylabel)
@@ -57,7 +57,7 @@ def run_eda_app():
 
     st.subheader('Pie 차트 형태로 비율 확인')
     selected_year = str(st.selectbox('년도 인구 선택', d_year))
-    df2= df.loc[selected_year,['man(korean)','woman(korean)','man(foreigner)','woman(foreigner)']]
+    df2= df.loc[selected_year,['남자(한국인)','여자(한국인)','남자(외국인)','여자(외국인)']]
     fig = plt.figure()
     plt.pie(df2, labels = df2.index, autopct='%.1f',startangle=90,wedgeprops={'width':0.8})
     plt.legend()
@@ -68,7 +68,7 @@ def run_eda_app():
 
     if st.checkbox('상관 관계 데이터 보기'):
         df2=df.sum(axis=1)
-        df['Population'] = df2
+        df['인구'] = df2
         selected_list = st.multiselect('두개의 컬럼을 선택하세요.' ,df.columns[:], max_selections=2)  
 
         #두개일때만 차트 그리기 
@@ -90,8 +90,8 @@ def run_eda_app():
             st.text('')
     
     else:
-        if 'Population' in df.columns:  #sum 컬럼이 있다면 삭제
-            df = df.drop(labels='Population',axis=1,inplace=True)
+        if '인구' in df.columns:  #sum 컬럼이 있다면 삭제
+            df = df.drop(labels='인구',axis=1,inplace=True)
 
     
    
