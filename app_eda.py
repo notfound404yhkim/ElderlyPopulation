@@ -50,7 +50,7 @@ def run_eda_app():
     #plt.title( ylabel +  ' population data by ' + 'year')
     plt.title( ylabel )
     
-    plt.xlabel('년도')
+    plt.xlabel('년도 별' + ylabel + ' 데이터 ' )
     plt.ylabel(ylabel)
     plt.plot( df[selected_column2] )
     st.pyplot(fig)
@@ -68,7 +68,7 @@ def run_eda_app():
 
     if st.checkbox('상관 관계 데이터 보기'):
         df2=df.sum(axis=1)
-        df['인구'] = df2
+        df['인천 인구'] = df2
         selected_list = st.multiselect('두개의 컬럼을 선택하세요.' ,df.columns[:], max_selections=2)  
 
         #두개일때만 차트 그리기 
@@ -90,8 +90,8 @@ def run_eda_app():
             st.text('')
     
     else:
-        if '인구' in df.columns:  #sum 컬럼이 있다면 삭제
-            df = df.drop(labels='인구',axis=1,inplace=True)
+        if '인천 인구' in df.columns:  #sum 컬럼이 있다면 삭제
+            df = df.drop(labels='인천 인구',axis=1,inplace=True)
 
     
    
