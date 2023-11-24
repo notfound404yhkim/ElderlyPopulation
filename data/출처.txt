@@ -1,2 +1,0 @@
-kosis 통계정보
-https://kosis.kr/statHtml/statHtml.do?orgId=204&tblId=DT_20402_B000001&vw_cd=MT_ZTITLE&list_id=204_20402_ch02_h11&scrId=&seqNo=&lang_mode=ko&obj_var_id=&itm_id=&conn_path=MT_ZTITLE&path=%252FstatisticsList%252FstatisticsListIndex.do
