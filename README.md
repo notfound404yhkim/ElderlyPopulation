@@ -59,6 +59,9 @@ joblib.dump(regressor,'regressor.pkl')
  - http://ec2-43-201-154-87.ap-northeast-2.compute.amazonaws.com:8501/
  
 ## 📌 Screen Shot
-
+![1](https://github.com/notfound404yhkim/ElderlyPopulation/assets/151480575/5c3972aa-595f-436e-99f3-d350e6836d5a)
+![2](https://github.com/notfound404yhkim/ElderlyPopulation/assets/151480575/a3bf9f24-35cf-4ae9-b542-24f663426d9b)
+![3](https://github.com/notfound404yhkim/ElderlyPopulation/assets/151480575/b9b54225-917c-4ac7-ba01-3b99e6324841)
+![4](https://github.com/notfound404yhkim/ElderlyPopulation/assets/151480575/4af10ab1-c4f8-42e2-8ea8-de10d21cea25)
 
 
